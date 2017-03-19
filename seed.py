@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import flask
 import os
-from random import randrange
+from random import randrange, uniform
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = True
@@ -102,7 +102,7 @@ def seed_grade_entries(cos, sos):
             obj = GradeEntry(student.rollno, course.code)
             params = {}
             for key in skeleton:
-                params[key] = randrange(0, skeleton[key]*100, 1)/4
+                params[key] = round(uniform(0, skeleton[key]), 2)
             obj.set(**params)
             db.session.add(obj)
     

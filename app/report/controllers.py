@@ -8,9 +8,9 @@ mod_report = Blueprint('report', __name__, url_prefix='/report')
 @mod_report.route('/student/<rollno>', methods=['GET'])
 def get_student_grades(rollno):
     grades = GradeEntry.query.filter(GradeEntry.student_rollno == rollno).all()
-    return render_template('report/index.html', report=grades)
+    return render_template('report/courses_for_student.html', report=grades)
 
 @mod_report.route('/course/<code>', methods=['GET'])
 def get_course(code):
-    student = Student.query.filter(Student.rollno == rollno).all()
-    return render_template('report/index.html', report=student)
+    grades = GradeEntry.query.filter(GradeEntry.course_code == code).all()
+    return render_template('report/students_for_course.html', report=grades)
