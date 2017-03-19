@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db
 
 
-
 class GradeEntry(db.Model):
     __tablename__ = 'grade_entry'
     assignments = db.Column(db.Float)

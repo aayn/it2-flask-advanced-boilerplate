@@ -18,7 +18,7 @@ def search_courses():
     return render_template('courses/index.html', courses=courses)
 
 @mod_courses.route('/<code>', methods=['GET'])
-def get_student(code):
+def get_course(code):
     course = Course.query.filter(Course.code == code).all()
     return render_template('courses/index.html', courses=course)
 
