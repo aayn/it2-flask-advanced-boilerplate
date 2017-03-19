@@ -43,3 +43,8 @@ Information for TAs.
 /report/entry/<rollno>/<code> - GET(read)
 ```
 
+## A little detail
+
+`form` implies a basic form, so that CREATE can be demoed. The form posts to
+the same link, which validates(?) the data and saves it into the database.
+
