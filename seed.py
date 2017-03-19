@@ -108,6 +108,7 @@ def seed_grade_entries(cos, sos):
     
 
 if __name__ == '__main__':
+    os.remove(os.path.join(base_dir, "app.db"))
     db.create_all()
     students = seed_students()
     courses = seed_courses()
