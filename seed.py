@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import flask
 import os
+from random import randrange
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = True
@@ -44,16 +45,18 @@ class GradeEntry(db.Model):
     labs = db.Column(db.Float)
     mids = db.Column(db.Float)
     end_sem = db.Column(db.Float)
-    student_roll = db.Column(db.String(8), db.ForeignKey("student.rollno"))
+    student_rollno = db.Column(db.String(8), db.ForeignKey("student.rollno"))
     course_code = db.Column(db.String(10), db.ForeignKey("course.code"))
     id = db.Column(db.Integer, primary_key=True)
 
 
-    def __init__(self, r):
+    def __init__(self, student, course):
         self.assignments = 0.0
         self.labs = 0.0
         self.mids = 0.0
         self.end_sem = 0.0
+        self.student_rollno = student
+        self.course_code = course
 
     def set(self, **kwargs):
         if "assignments" in kwargs:
@@ -68,11 +71,45 @@ class GradeEntry(db.Model):
         if "end_sem" in kwargs:
             self.end_sem = kwargs["end_sem"]
 
-db.create_all()
 
-db.session.add(Student('201401071', 'Jerin Philip'))
-db.session.add(Student('201401065', 'Vishal Kaja'))
-db.session.add(Course( 'ICS102', 'IT Workshop II',''))
-db.session.add(Course( 'IEC101', 'Basic Electronic Circuits',''))
-db.session.commit()
 
+
+def seed_courses():
+    cf = open("seed/Courses.txt")
+    entries = list(map(lambda x: x.strip().split(','), cf))
+    cos = list(map(lambda x: Course(*x), entries))
+    for co in cos:
+        db.session.add(co)
+    return cos
+
+def seed_students():
+    sf = open("seed/Students.txt")
+    entries = list(map(lambda x: x.strip().split(','), sf))
+    sos = list(map(lambda x: Student(*x), entries))
+    for so in sos:
+        db.session.add(so)
+    return sos
+
+def seed_grade_entries(cos, sos):
+    for student in sos:
+        for course in cos:
+            skeleton = {
+                "assignments": 15,
+                "labs": 15,
+                "mids": 30,
+                "end_sem": 40
+            }
+            obj = GradeEntry(student.rollno, course.code)
+            params = {}
+            for key in skeleton:
+                params[key] = randrange(0, skeleton[key]*100, 1)/4
+            obj.set(**params)
+            db.session.add(obj)
+    
+
+if __name__ == '__main__':
+    db.create_all()
+    students = seed_students()
+    courses = seed_courses()
+    seed_grade_entries(courses, students)
+    db.session.commit()
