@@ -20,6 +20,20 @@ Information for TAs.
     - Integrated to larger app in `app/__init__.py`.
         - This reads configuration from `config.py`.
 
+# The Data Model
+
+* Student = (**rollno**, name)
+* Course = (**code**, name, description)
+* GradeEntry = (*student_rollno*, *course_code*, assignments, labs, mids, end_sem)
+
+**bold** indicates primary key, *italic* foreign key. Also:
+* *student_rollno* -> **rollno**
+* *course_code* -> **code**
+
+Think of the student module as some student profile module, and the course
+module as a course info page module and the report as another module which is
+built by associating student and courses.
+
 
 # Routes Required
 
