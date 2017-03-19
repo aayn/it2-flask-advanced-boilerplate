@@ -57,8 +57,24 @@ built by associating student and courses.
 /report/entry/<rollno>/<code> - GET(read)
 ```
 
+## ?
+
+- Is `/students/<rollno>/update` necessary to make entries editable?
+- Same for `/course/<code>/update`.
+- Both the above can be implemented via GET, but POSTs as mentioned in the
+  above route.
+
+
 ## A little detail
 
-`form` implies a basic form, so that CREATE can be demoed. The form posts to
+`form` implies a basic form, so that CREATE can be demoed. The form POSTs to
 the same link, which validates(?) the data and saves it into the database.
 
+
+
+# TODO
+
+- Implement the solutions. Proof of Concept.
+- Remove stuff and supply boilerplate to start with, or a lot of students are
+  going to screw up.
+- Ideas are vague. Make problem statements specific.
