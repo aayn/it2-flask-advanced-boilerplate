@@ -7,18 +7,18 @@ mod_courses = Blueprint('courses', __name__, url_prefix='/courses')
 
 @mod_courses.route('/', methods=['GET'])
 def get_all_courses():
-    courses = Course.query.all()
+    # set courses to the appropriate value
+
     return render_template('courses/index.html', courses=courses)
 
 @mod_courses.route('/search', methods=['GET'])
 def search_courses():
-    qstr = request.args.get('q')
-    sqlqstr = '%%%s%%'%(qstr)
-    courses = Course.query.filter(Course.name.like(sqlqstr)).all()
+    # set courses to the appropriate value
+
     return render_template('courses/index.html', courses=courses)
 
 @mod_courses.route('/<code>', methods=['GET'])
 def get_course(code):
-    course = Course.query.filter(Course.code == code).all()
-    return render_template('courses/index.html', courses=course)
+    # set courses to the appropriate value
 
+    return render_template('courses/index.html', courses=course)

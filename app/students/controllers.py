@@ -7,10 +7,12 @@ mod_students = Blueprint('students', __name__, url_prefix='/students')
 
 @mod_students.route('/', methods=['GET'])
 def get_all_students():
-    students = Student.query.all()
+    # set students to the appropriate value
+
     return render_template('students/index.html', students=students)
 
 @mod_students.route('/<rollno>', methods=['GET'])
 def get_student(rollno):
-    student = Student.query.filter(Student.rollno == rollno).all()
+    # set student to the appropriate value
+
     return render_template('students/index.html', students=student)
